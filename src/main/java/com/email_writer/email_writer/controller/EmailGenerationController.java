@@ -2,13 +2,12 @@ package com.email_writer.email_writer.controller;
 
 import com.email_writer.email_writer.dto.EmailRequest;
 import com.email_writer.email_writer.dto.EmailResponse;
-
 import com.email_writer.email_writer.service.EmailGenerationService;
 
-
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/email")
@@ -21,6 +20,17 @@ public class EmailGenerationController {
             EmailGenerationService service
     ) {
         this.service = service;
+    }
+
+    // Health Check API
+    @GetMapping("/health")
+    public ResponseEntity<Map<String, String>> healthCheck() {
+        return ResponseEntity.ok(
+                Map.of(
+                        "status", "UP",
+                        "message", "Email Writer Service is running"
+                )
+        );
     }
 
     @PostMapping("/reply")
